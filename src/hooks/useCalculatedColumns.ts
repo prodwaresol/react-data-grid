@@ -70,6 +70,7 @@ export function useCalculatedColumns<R, SR>({
         minWidth: rawColumn.minWidth ?? defaultMinWidth,
         maxWidth: rawColumn.maxWidth ?? defaultMaxWidth,
         sortable: rawColumn.sortable ?? defaultSortable,
+        alignment: rawColumn.alignment ?? '',
         resizable: rawColumn.resizable ?? defaultResizable,
         renderCell: rawColumn.renderCell ?? defaultFormatter
       };

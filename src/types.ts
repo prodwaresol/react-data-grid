@@ -43,6 +43,8 @@ export interface Column<TRow, TSummaryRow = unknown> {
   readonly resizable?: Maybe<boolean>;
   /** Enable sorting of a column */
   readonly sortable?: Maybe<boolean>;
+  /** Text alignment of the column */
+  readonly alignment?: Maybe<string>;
   /** Sets the column sort order to be descending instead of ascending the first time the column is sorted */
   readonly sortDescendingFirst?: Maybe<boolean>;
   readonly editorOptions?: Maybe<{

@@ -1,6 +1,6 @@
 import { css } from '@linaria/core';
 
-import type { RenderHeaderCellProps } from './types';
+import type { Maybe, RenderHeaderCellProps } from './types';
 import { useDefaultRenderers } from './DataGridDefaultRenderersProvider';
 
 const headerSortCell = css`
@@ -26,6 +26,7 @@ const headerSortName = css`
 `;
 
 const headerSortNameClassname = `rdg-header-sort-name ${headerSortName}`;
+const headerSortNameRightClassname = `rdg-header-sort-name-right ${headerSortName}`;
 
 export default function renderHeaderCell<R, SR>({
   column,
@@ -39,6 +40,7 @@ export default function renderHeaderCell<R, SR>({
   return (
     <SortableHeaderCell
       onSort={onSort}
+      alignment={column.alignment}
       sortDirection={sortDirection}
       priority={priority}
       tabIndex={tabIndex}
@@ -55,10 +57,12 @@ type SharedHeaderCellProps<R, SR> = Pick<
 
 interface SortableHeaderCellProps<R, SR> extends SharedHeaderCellProps<R, SR> {
   children: React.ReactNode;
+  alignment: Maybe<string>;
 }
 
 function SortableHeaderCell<R, SR>({
   onSort,
+  alignment,
   sortDirection,
   priority,
   children,
@@ -85,7 +89,11 @@ function SortableHeaderCell<R, SR>({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      <span className={headerSortNameClassname}>{children}</span>
+      <span
+        className={alignment == 'right' ? headerSortNameRightClassname : headerSortNameClassname}
+      >
+        {children}
+      </span>
       <span>{renderSortStatus({ sortDirection, priority })}</span>
     </span>
   );
