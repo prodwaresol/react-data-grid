@@ -1,6 +1,6 @@
 {
   "name": "pw-react-data-grid",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "description": "Feature-rich and customizable data grid React component",
   "keywords": [
@@ -48,7 +48,7 @@
     "prettier:check": "prettier --check .",
     "prettier:format": "prettier --write .",
     "typecheck": "tsc",
-    "prepublishOnly": "npm install && node --run build && node --run build:types",
+    "prepublishOnly": "npm install && npm run build && npm run build:types",
     "postpublish": "git push --follow-tags origin HEAD"
   },
   "dependencies": {
