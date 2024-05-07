@@ -1,16 +1,13 @@
-import linaria from '@linaria/rollup';
 import react from '@vitejs/plugin-react';
-import postcssNested from 'postcss-nested';
+import wyw from '@wyw-in-js/vite';
 import { defineConfig } from 'vite';
 
 const isCI = process.env.CI === 'true';
 const isTest = process.env.NODE_ENV === 'test';
 
 export default defineConfig({
-  root: 'website',
   base: isCI ? '/react-data-grid/' : '/',
   build: {
-    outDir: '../dist',
     emptyOutDir: true,
     sourcemap: true
   },
@@ -27,13 +24,8 @@ export default defineConfig({
         plugins: [['optimize-clsx', { functionNames: ['getCellClassname'] }]]
       }
     }),
-    !isTest && linaria({ preprocessor: 'none' })
+    !isTest && wyw({ preprocessor: 'none' })
   ],
-  css: {
-    postcss: {
-      plugins: [postcssNested]
-    }
-  },
   server: {
     open: true
   },
@@ -45,10 +37,15 @@ export default defineConfig({
       provider: 'v8',
       enabled: isCI,
       include: ['src/**/*.{ts,tsx}', '!src/types.ts'],
-      all: true,
       reporter: ['text', 'json']
     },
-    useAtomics: true,
+    pool: 'vmThreads',
+    poolOptions: {
+      vmThreads: {
+        useAtomics: true
+      }
+    },
+    testTimeout: isCI ? 10000 : 5000,
     setupFiles: ['test/setup.ts'],
     restoreMocks: true,
     sequence: {

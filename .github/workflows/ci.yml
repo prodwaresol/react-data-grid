@@ -13,54 +13,57 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           check-latest: true
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package.json') }}
       - name: npm install
         run: npm i
-      - name: Rome
-        run: npm run rome:ci
+      - name: Biome
+        run: node --run biome:ci
       - name: ESLint
-        run: npm run eslint
+        run: node --run eslint
       - name: Prettier
-        run: npm run prettier:check
+        run: node --run prettier:check
       - name: Typecheck
-        run: npm run typecheck
+        run: node --run typecheck
       - name: Bundle
         run: |
-          npm run build
-          npm run build:types
+          node --run build
+          node --run build:types
       - name: Test
-        run: npm t
+        run: npm --run test
         timeout-minutes: 4
-      - uses: codecov/codecov-action@v3
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   website:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           check-latest: true
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package.json') }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: node_modules/.cache
           key: build-${{ hashFiles('package.json') }}
       - name: Build
         run: |
           npm i
-          npm run build:website
+          node --run build:website
       - name: Set up git user
         if: github.event_name == 'push'
         run: |
