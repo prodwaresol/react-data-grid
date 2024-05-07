@@ -1,6 +1,6 @@
 {
   "name": "pw-react-data-grid",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "license": "MIT",
   "description": "Feature-rich and customizable data grid React component",
   "keywords": [
@@ -9,9 +9,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adazzle/react-data-grid.git"
+    "url": "git+https://github.com/prodwaresol/react-data-grid.git"
   },
-  "bugs": "https://github.com/adazzle/react-data-grid/issues",
+  "bugs": "https://github.com/prodwaresol/react-data-grid/issues",
   "type": "module",
   "exports": {
     "./lib/styles.css": "./lib/styles.css",
